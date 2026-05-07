@@ -12,11 +12,11 @@ def charger_json(chemin_fichier):
     """
     Charge un fichier JSON à partir d'un fichier ZIP et retourne les données sous forme de dictionnaire.
 
-    Args:
-    chemin_fichier (str): Le chemin du fichier ZIP contenant le JSON à charger.
+    ### Args:
+    - chemin_fichier (str): Le chemin du fichier ZIP contenant le JSON à charger.
 
-    Returns:
-    dict: Un dictionnaire contenant les données du JSON, ou None en cas d'erreur.
+    ### Returns:
+    - dict: Un dictionnaire contenant les données du JSON, ou None en cas d'erreur.
     """
     try:
         with zipfile.ZipFile(chemin_fichier, "r") as zip_ref:
@@ -41,12 +41,12 @@ def sélectionner_fichier(dossier, extension):
     """
     Affiche un menu avec une liste d'options et retourne le choix de l'utilisateur.
 
-    Args:
-    dossier (str): Le chemin du dossier à lister.
-    extension (str): L'extension des fichiers à lister.
+    ### Args:
+    - dossier (str): Le chemin du dossier à lister.
+    - extension (str): L'extension des fichiers à lister.
 
-    Returns:
-    str: L'option choisie par l'utilisateur ou le fichier présent s'il n'y en a qu'un, ou None si une erreur survient.
+    ### Returns:
+    - str: L'option choisie par l'utilisateur ou le fichier présent s'il n'y en a qu'un, ou None si une erreur survient.
     """
     fichiers = []
     try:
@@ -81,11 +81,11 @@ def charger_donnees(fichier=None):
     """
     Charge les données d'un fichier JSON ZIP et retourne la liste des candidats.
 
-    Args:
-    fichier (str, optional): Le chemin du fichier ZIP contenant le JSON à charger. Si None, affiche un menu pour choisir un fichier.
+    ### Args:
+    - fichier (str, optional): Le chemin du fichier ZIP contenant le JSON à charger. Si None, affiche un menu pour choisir un fichier.
 
-    Returns:
-    list: Une liste de candidats, ou None en cas d'erreur.
+    ### Returns:
+    - list: Une liste de candidats, ou None en cas d'erreur.
     """
     if fichier is None:
         fichier = sélectionner_fichier(".", ".json.zip")
@@ -100,11 +100,11 @@ def convertir_chaine_en_float(chaine):
     """
     Convertit une chaîne contenant un nombre décimal avec des virgules en un float.
 
-    Args:
-    chaine (str): La chaîne à convertir.
+    ### Args:
+    - chaine (str): La chaîne à convertir.
 
-    Returns:
-    float: Le nombre converti en float, ou None si la conversion échoue.
+    ### Returns:
+    - float: Le nombre converti en float, ou None si la conversion échoue.
     """
     try:
         return float(chaine.replace(",", "."))
@@ -116,15 +116,15 @@ def note_modifiee(note, moyenne_classe, moyenne_basse, moyenne_haute, brute=0.5)
     """
     Calcule une note modifiée en pondérant avec l'argument 'brute' la note brute et la note normalisée.
 
-    Args:
-    note (float): La note à modifier.
-    moyenne_classe (float): La moyenne de la classe.
-    moyenne_basse (float): La moyenne la plus basse.
-    moyenne_haute (float): La moyenne la plus haute.
-    brute (float, optional): Le poids de la note brute (entre 0 et 1, par défaut 0.5).
+    ### Args:
+    - note (float): La note à modifier.
+    - moyenne_classe (float): La moyenne de la classe.
+    - moyenne_basse (float): La moyenne la plus basse.
+    - moyenne_haute (float): La moyenne la plus haute.
+    - brute (float, optional): Le poids de la note brute (entre 0 et 1, par défaut 0.5).
 
-    Returns:
-    float: La note modifiée, ou -1 si une erreur survient.
+    ### Returns:
+    - float: La note modifiée, ou -1 si une erreur survient.
     """
     note = convertir_chaine_en_float(note)
     if note is None:
@@ -150,14 +150,14 @@ def note_normalisee(note, moyenne_classe, moyenne_basse, moyenne_haute):
     """
     Calcule la regression linéaire entre 0 et 20 pour une note avec la moyenne de la classe en valeur centrale.
 
-    Args:
-    note (float): La note à normaliser.
-    moyenne_classe (float): La moyenne de la classe.
-    moyenne_basse (float): La moyenne la plus basse.
-    moyenne_haute (float): La moyenne la plus haute.
+    ### Args:
+    - note (float): La note à normaliser.
+    - moyenne_classe (float): La moyenne de la classe.
+    - moyenne_basse (float): La moyenne la plus basse.
+    - moyenne_haute (float): La moyenne la plus haute.
 
-    Returns:
-    float: La note normalisée, ou -1 si une erreur survient.
+    ### Returns:
+    - float: La note normalisée, ou -1 si une erreur survient.
     """
     if note < moyenne_classe:
         if moyenne_classe == moyenne_basse:
@@ -173,11 +173,11 @@ def note_bac_modifiee(note):
     """
     Convertit une note de baccalauréat en float et retourne 0 si la conversion échoue.
 
-    Args:
-    note (str): La note à convertir.
+    ### Args:
+    - note (str): La note à convertir.
 
-    Returns:
-    float: La note convertie en float, ou 0 si la conversion échoue.
+    ### Returns:
+    - float: La note convertie en float, ou 0 si la conversion échoue.
     """
     note = convertir_chaine_en_float(note)
     if note is None:
@@ -189,11 +189,11 @@ def candidature_confirmee(candidat):
     """
     Vérifie si la candidature d'un candidat est confirmée.
 
-    Args:
-    candidat (dict): Un dictionnaire contenant les données d'un candidat.
+    ### Args:
+    - candidat (dict): Un dictionnaire contenant les données d'un candidat.
 
-    Returns:
-    bool: True si la candidature est confirmée, False sinon.
+    ### Returns:
+    - bool: True si la candidature est confirmée, False sinon.
     """
     return int(candidat["DonneesVoeux"]["CandidatureConfirmeeCode"]) == 1
 
@@ -202,11 +202,11 @@ def numero_dossier_candidat(candidat):
     """
     Retourne le numéro de dossier d'un candidat.
 
-    Args:
-    candidat (dict): Un dictionnaire contenant les données d'un candidat.
+    ### Args:
+    - candidat (dict): Un dictionnaire contenant les données d'un candidat.
 
-    Returns:
-    str: Le numéro de dossier du candidat.
+    ### Returns:
+    - str: Le numéro de dossier du candidat.
     """
     return candidat["DonneesCandidats"]["NumeroDossierCandidat"]
 
@@ -215,11 +215,11 @@ def sexe_candidat(candidat):
     """
     Retourne le sexe d'un candidat.
 
-    Args:
-    candidat (dict): Un dictionnaire contenant les données d'un candidat.
+    ### Args:
+    - candidat (dict): Un dictionnaire contenant les données d'un candidat.
 
-    Returns:
-    str: Le sexe du candidat (Masculin ou Féminin).
+    ### Returns:
+    - str: Le sexe du candidat (Masculin ou Féminin).
     """
     return candidat["DonneesCandidats"]["Sexe"]
 
@@ -228,11 +228,11 @@ def type_bac(candidat):
     """
     Retourne le type de baccalauréat d'un candidat, en distinguant les bacs professionnels aéronautiques.
 
-    Args:
-    candidat (dict): Un dictionnaire contenant les données d'un candidat.
+    ### Args:
+    - candidat (dict): Un dictionnaire contenant les données d'un candidat.
 
-    Returns:
-    dict: La série (Générale, STI2D, P, STL, STMG...) et la spécialité (Energies et environnement, Innovation technologique et eco conception, Architecture et construction, Système informatique et numérique, Aéronautique opt. mécanicien syst. avionique...) du baccalauréat du candidat.
+    ### Returns:
+    - dict: La série (Générale, STI2D, P, STL, STMG...) et la spécialité (Energies et environnement, Innovation technologique et eco conception, Architecture et construction, Système informatique et numérique, Aéronautique opt. mécanicien syst. avionique...) du baccalauréat du candidat.
     """
 
     return {
@@ -245,11 +245,11 @@ def identite_candidat(candidat):
     """
     Retourne un dictionnaire contenant le nom, le prénom et l'email d'un candidat.
 
-    Args:
-    candidat (dict): Un dictionnaire contenant les données d'un candidat.
+    ### Args:
+    - candidat (dict): Un dictionnaire contenant les données d'un candidat.
 
-    Returns:
-    dict: Un dictionnaire contenant le nom, le prénom et l'email du candidat.
+    ### Returns:
+    - dict: Un dictionnaire contenant le nom, le prénom et l'email du candidat.
     """
     return {
         "nom": candidat.get("DonneesCandidats", {}).get("NomCandidat", "N/A"),
@@ -264,11 +264,11 @@ def groupe_candidat(candidat):
     """
     Retourne le groupe d'un candidat.
 
-    Args:
-    candidat (dict): Un dictionnaire contenant les données d'un candidat.
+    ### Args:
+    - candidat (dict): Un dictionnaire contenant les données d'un candidat.
 
-    Returns:
-    str: Le groupe du candidat (Autres candidats ou Bacheliers professionnels toutes séries), ou "N/A" si l'information n'est pas disponible.
+    ### Returns:
+    - str: Le groupe du candidat (Autres candidats ou Bacheliers professionnels toutes séries), ou "N/A" si l'information n'est pas disponible.
     """
     return candidat.get("DonneesVoeux", "N/A").get("GroupeLibelle", "N/A")
 
@@ -277,12 +277,12 @@ def filtrer_scolarite(candidat, redoublement_neutralise=True):
     """
     Retourne une liste des années scolaires lycée du candidat en filtrant les redoublements de Première et Terminale si 'redoublement_neutralise' est True.
 
-    Args:
-    candidat (dict): Un dictionnaire contenant les données d'un candidat.
-    redoublement_neutralise (bool, optional): Si True, les redoublements de Première et Terminale sont neutralisés (par défaut True).
+    ### Args:
+    - candidat (dict): Un dictionnaire contenant les données d'un candidat.
+    - redoublement_neutralise (bool, optional): Si True, les redoublements de Première et Terminale sont neutralisés (par défaut True).
 
-    Returns:
-    list: Une liste des années scolaires lycée du candidat, filtrée selon les redoublements si nécessaire.
+    ### Returns:
+    - list: Une liste des années scolaires lycée du candidat, filtrée selon les redoublements si nécessaire.
     """
     sco_candidat = []
     T1 = False
@@ -303,12 +303,12 @@ def iterer_matieres_dans_bac(candidat, notes_bac):
     """
     Itère sur les matières du baccalauréat d'un candidat et retourne un dictionnaire contenant la matière, le code et la note.
 
-    Args:
-    candidat (dict): Un dictionnaire contenant les données d'un candidat.
-    notes_bac (dict): Un dictionnaire associant les matières du baccalauréat à leurs codes.
+    ### Args:
+    - candidat (dict): Un dictionnaire contenant les données d'un candidat.
+    - notes_bac (dict): Un dictionnaire associant les matières du baccalauréat à leurs codes.
 
-    Returns:
-    dict: Un dictionnaire contenant la matière, le code et la note pour chaque matière trouvée dans les notes de baccalauréat du candidat.
+    ### Returns:
+    - dict: Un dictionnaire contenant la matière, le code et la note pour chaque matière trouvée dans les notes de baccalauréat du candidat.
     """
     for NoteBac in candidat["NotesBaccalaureat"]:
         for matiere, codes in notes_bac.items():
@@ -325,13 +325,13 @@ def iterer_matieres_dans_bulletins(candidat, matieres, redoublement_neutralise=T
     """
     Itère sur les matières des bulletins scolaires d'un candidat et retourne un dictionnaire contenant la matière, le code et le bulletin.
 
-    Args:
-    candidat (dict): Un dictionnaire contenant les données d'un candidat.
-    matieres (dict): Un dictionnaire associant les matières à leurs codes.
-    redoublement_neutralise (bool, optional): Si True, les redoublements de Première et Terminale sont neutralisés (par défaut True).
+    ### Args:
+    - candidat (dict): Un dictionnaire contenant les données d'un candidat.
+    - matieres (dict): Un dictionnaire associant les matières à leurs codes.
+    - redoublement_neutralise (bool, optional): Si True, les redoublements de Première et Terminale sont neutralisés (par défaut True).
 
-    Returns:
-    dict: Un dictionnaire contenant la matière, le code et le bulletin pour chaque matière trouvée dans les bulletins scolaires du candidat, filtré selon les redoublements si nécessaire.
+    ### Returns:
+    - dict: Un dictionnaire contenant la matière, le code et le bulletin pour chaque matière trouvée dans les bulletins scolaires du candidat, filtré selon les redoublements si nécessaire.
     """
     sco_candidat = filtrer_scolarite(candidat, redoublement_neutralise)
     for annee_code in sco_candidat:
@@ -357,11 +357,11 @@ def moyennes_bulletins_matiere(bulletin):
     """
     Retourne un dictionnaire contenant la moyenne du candidat, la moyenne de la classe, la moyenne basse et la moyenne haute pour une matière donnée dans un bulletin scolaire.
 
-    Args:
-    bulletin (dict): Un dictionnaire contenant les données d'un bulletin scolaire pour une matière donnée.
+    ### Args:
+    - bulletin (dict): Un dictionnaire contenant les données d'un bulletin scolaire pour une matière donnée.
 
-    Returns:
-    dict: Un dictionnaire contenant la moyenne du candidat, la moyenne de la classe, la moyenne basse et la moyenne haute pour la matière donnée dans le bulletin scolaire.
+    ### Returns:
+    - dict: Un dictionnaire contenant la moyenne du candidat, la moyenne de la classe, la moyenne basse et la moyenne haute pour la matière donnée dans le bulletin scolaire.
     """
     return {
         "moyenne_candidat": bulletin.get("MoyenneduCandidat"),
@@ -375,12 +375,12 @@ def classer_candidats_par_critère(resultats_candidats, critere):
     """
     Retourne un dictionnaire de résultats de candidats trié par un critère donné en ordre décroissant.
 
-    Args:
-    resultats_candidats (dict): Un dictionnaire contenant les résultats des candidats.
-    critere (str): Le critère de tri (par exemple, "Notes").
+    ### Args:
+    - resultats_candidats (dict): Un dictionnaire contenant les résultats des candidats.
+    - critere (str): Le critère de tri (par exemple, "Notes").
 
-    Returns:
-    dict: Un dictionnaire de résultats de candidats trié par le critère donné en ordre décroissant.
+    ### Returns:
+    - dict: Un dictionnaire de résultats de candidats trié par le critère donné en ordre décroissant.
     """
     return dict(
         sorted(
@@ -395,13 +395,13 @@ def generer_excel(resultats_candidats, headers, nom_fichier="resultats_candidats
     """
     Génère un fichier Excel à partir d'un dictionnaire de résultats de candidats, en ajoutant les nouveaux candidats à un fichier existant si nécessaire.
 
-    Args:
-    resultats_candidats (dict): Un dictionnaire contenant les résultats des candidats.
-    headers (list): Une liste des en-têtes de colonnes à inclure dans le fichier Excel.
-    nom_fichier (str, optional): Le nom du fichier Excel à générer (par défaut "resultats_candidats.xlsx").
+    ### Args:
+    - resultats_candidats (dict): Un dictionnaire contenant les résultats des candidats.
+    - headers (list): Une liste des en-têtes de colonnes à inclure dans le fichier Excel.
+    - nom_fichier (str, optional): Le nom du fichier Excel à générer (par défaut "resultats_candidats.xlsx").
 
-    Returns:
-    bool: True si le fichier Excel a été généré avec succès, False sinon.
+    ### Returns:
+    - bool: True si le fichier Excel a été généré avec succès, False sinon.
     """
     list_num = []
     if os.path.exists(nom_fichier):
@@ -466,16 +466,16 @@ def generer_pdf(
     """
     Génère un fichier PDF à partir d'un dictionnaire de résultats de candidats, en filtrant les candidats selon des critères d'inclusion ou d'exclusion.
 
-    Args:
-    resultats_candidats (dict): Un dictionnaire contenant les résultats des candidats.
-    titre (str): Le titre à afficher en haut du PDF.
-    headers (list): Une liste des en-têtes de colonnes à inclure dans le PDF.
-    col_width (list): Une liste des largeurs de colonnes correspondantes aux en-têtes.
-    nom_fichier (str): Le nom du fichier PDF à générer.
-    criteres (list, optional): Une liste de dictionnaires contenant les critères d'inclusion ou d'exclusion pour filtrer les candidats (par exemple, [{"critere": "Bac", "inclus": ["P"]}]).
+    ### Args:
+    - resultats_candidats (dict): Un dictionnaire contenant les résultats des candidats.
+    - titre (str): Le titre à afficher en haut du PDF.
+    - headers (list): Une liste des en-têtes de colonnes à inclure dans le PDF.
+    - col_width (list): Une liste des largeurs de colonnes correspondantes aux en-têtes.
+    - nom_fichier (str): Le nom du fichier PDF à générer.
+    - criteres (list, optional): Une liste de dictionnaires contenant les critères d'inclusion ou d'exclusion pour filtrer les candidats (par exemple, [{"critere": "Bac", "inclus": ["P"]}]).
 
-    Returns:
-    bool: True si le PDF a été généré avec succès, False sinon.
+    ### Returns:
+    - bool: True si le PDF a été généré avec succès, False sinon.
     """
 
     class PDF(FPDF):
@@ -531,13 +531,13 @@ def generer_csv(resultats_candidats, colonnes, chemin_fichier=None):
     """
     Génère un fichier CSV importable dans parcoursup à partir d'un dictionnaire de résultats de candidats.
 
-    Parameters:
-    resultats_candidats (dict): Un dictionnaire contenant les résultats des candidats.
-    colonnes (list): Une liste des noms de colonnes à compléter dans le fichier CSV.
-    chemin_fichier (str, optional): Le chemin du fichier CSV à générer.
+    ### Args:
+    - resultats_candidats (dict): Un dictionnaire contenant les résultats des candidats.
+    - colonnes (list): Une liste des noms de colonnes à compléter dans le fichier CSV.
+    - chemin_fichier (str, optional): Le chemin du fichier CSV à générer.
 
-    Returns:
-    bool: True si le CSV a été généré avec succès, False sinon.
+    ### Returns:
+    - bool: True si le CSV a été généré avec succès, False sinon.
     """
     if chemin_fichier is None:
         fichier = sélectionner_fichier(".", ".csv")
