@@ -71,4 +71,6 @@ Utiliser votre éditeur de code favori.
 
 Créer votre programme en utilisant les fonctions de la librairie à partir du programme "exemple.py".
 
+Lancer le programme `python3 [nom_programme].py`
+
 
