@@ -373,14 +373,14 @@ def moyennes_bulletins_matiere(bulletin):
 
 def classer_candidats_par_critère(resultats_candidats, critere):
     """
-    Retourne un dictionnaire de résultats de candidats trié par un critère donné en ordre décroissant.
+    Retourne un dictionnaire de résultats de candidats triés par un critère donné en ordre décroissant.
 
     ### Args:
     - resultats_candidats (dict): Un dictionnaire contenant les résultats des candidats.
     - critere (str): Le critère de tri (par exemple, "Notes").
 
     ### Returns:
-    - dict: Un dictionnaire de résultats de candidats trié par le critère donné en ordre décroissant.
+    - dict: Un dictionnaire de résultats de candidats triés par le critère donné en ordre décroissant.
     """
     return dict(
         sorted(
