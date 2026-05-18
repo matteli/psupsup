@@ -50,7 +50,7 @@ for candidat in candidats:
 
         if (
             bac["série"] == "STI2D" and bac["série"] == "P"
-        ):  # Filtrage des candidats suivants le bac
+        ):  # Filtrage des candidats suivant le bac
 
             # Création d'itérateur pour parcourir les matières présentes dans les bulletins du candidat en fonction des matières définies dans le dictionnaire 'matieres' et de la variable 'redoublement_neutralise'.
             matieres_bulletins = iterer_matieres_dans_bulletins(
