@@ -345,7 +345,9 @@ def iterer_matieres_dans_bulletins(candidat, matieres, redoublement_neutralise=T
                     ]:
                         for matiere, codes in matieres.items():
                             for c in codes:  # matiere:
-                                if c == int(BulletinMatiere["MatiereBulletinCode"]):
+                                if c == 0 or c == int(
+                                    BulletinMatiere["MatiereBulletinCode"]
+                                ):
                                     yield {
                                         "matiere": matiere,
                                         "code": c,
