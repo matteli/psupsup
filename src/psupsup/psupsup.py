@@ -10,18 +10,20 @@ from fpdf import FPDF
 from transformers import pipeline
 
 
-def init_classificateur(model_name="appert", device=0):
+def init_classificateur(model_path="./models/appert", device=0):
     """
     Initialise le modèle de classification de texte.
 
     ### Args:
-    - model_name (str, optional): Le nom du modèle à utiliser (par défaut "appert").
+    - model_path (str, optional): Le chemin du modèle à utiliser (par défaut "./models/appert").
     - device (int, optional): Le numéro du dispositif à utiliser (par défaut 0 : 1er GPU, -1 : CPU).
 
     ### Returns:
     - pipeline: Un pipeline de classification de texte initialisé avec le modèle spécifié.
     """
-    return pipeline("text-classification", model=model_name, device=device)
+    return pipeline(
+        "text-classification", model=model_path, device=device, local_files_only=True
+    )
 
 
 def classer_app(classifier, appreciation):
