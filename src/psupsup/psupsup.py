@@ -10,7 +10,7 @@ from fpdf import FPDF
 from transformers import pipeline
 
 
-def init_classification(model_name="appert", device=0):
+def init_classificateur(model_name="appert", device=0):
     """
     Initialise le modèle de classification de texte.
 
@@ -24,7 +24,7 @@ def init_classification(model_name="appert", device=0):
     return pipeline("text-classification", model=model_name, device=device)
 
 
-def classify_appreciation(classifier, appreciation):
+def classer_app(classifier, appreciation):
     """
     Classifie une appréciation (0 : mauvaise appréciation, 1 : bonne appréciation) en utilisant le modèle de classification.
 
