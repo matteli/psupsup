@@ -6,11 +6,13 @@ authors = [
     {name = "Matthieu Nué",email = "matthieu.nue@gmail.com"}
 ]
 readme = "README.md"
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 dependencies = [
     "openpyxl (>=3.1.5,<4.0.0)",
     "fpdf (>=1.7.2,<2.0.0)",
-    "transformers (>=4.0.0,<5.0.0)"
+    "transformers (>=4.0.0,<5.0.0)",
+    "sentencepiece != 0.1.92",
+    "torch (>=1.7.0,<2.0.0)"    
 ]
 
 [tool.poetry]
