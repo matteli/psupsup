@@ -7,6 +7,36 @@ import openpyxl
 from openpyxl.styles import Font, PatternFill
 from fpdf import FPDF
 
+from transformers import pipeline
+
+
+def init_classification(model_name="appert", device=0):
+    """
+    Initialise le modèle de classification de texte.
+
+    ### Args:
+    - model_name (str, optional): Le nom du modèle à utiliser (par défaut "appert").
+    - device (int, optional): Le numéro du dispositif à utiliser (par défaut 0 : 1er GPU, -1 : CPU).
+
+    ### Returns:
+    - pipeline: Un pipeline de classification de texte initialisé avec le modèle spécifié.
+    """
+    return pipeline("text-classification", model=model_name, device=device)
+
+
+def classify_appreciation(classifier, appreciation):
+    """
+    Classifie une appréciation (0 : mauvaise appréciation, 1 : bonne appréciation) en utilisant le modèle de classification.
+
+    ### Args:
+    - classifier (pipeline): Un pipeline de classification de texte.
+    - appreciation (str | list): La ou les appréciations à classer.
+
+    ### Returns:
+    - list: Le résultat de la classification de l'appréciation, avec les étiquettes et les scores correspondants dans un dictionnaire.
+    """
+    return classifier(appreciation)
+
 
 def charger_json(chemin_fichier):
     """
