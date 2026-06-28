@@ -37,7 +37,9 @@ def classer_app(classifier, appreciation):
     ### Returns:
     - list: Le résultat de la classification de l'appréciation, avec les étiquettes et les scores correspondants dans un dictionnaire.
     """
-    return classifier(appreciation)
+    if appreciation is not None:
+        return classifier(appreciation)
+    return None
 
 
 def charger_json(chemin_fichier):
@@ -69,7 +71,7 @@ def charger_json(chemin_fichier):
     return None
 
 
-def sélectionner_fichier(dossier, extension):
+def selectionner_fichier(dossier, extension):
     """
     Affiche un menu avec une liste d'options et retourne le choix de l'utilisateur.
 
@@ -120,7 +122,7 @@ def charger_donnees(fichier=None):
     - list: Une liste de candidats, ou None en cas d'erreur.
     """
     if fichier is None:
-        fichier = sélectionner_fichier(".", ".json.zip")
+        fichier = selectionner_fichier(".", ".json.zip")
     dictionnaire = charger_json(fichier)
     if dictionnaire is not None:
         candidats = dictionnaire["exportDeDonnees"]["exportCandidats"][0]["candidats"]
@@ -264,12 +266,12 @@ def type_bac(candidat):
     - candidat (dict): Un dictionnaire contenant les données d'un candidat.
 
     ### Returns:
-    - dict: La série (Générale, STI2D, P, STL, STMG...) et la spécialité (Energies et environnement, Innovation technologique et eco conception, Architecture et construction, Système informatique et numérique, Aéronautique opt. mécanicien syst. avionique...) du baccalauréat du candidat.
+    - dict: La série (serie) (Générale, STI2D, P, STL, STMG...) et la spécialité (specialite) (Energies et environnement, Innovation technologique et eco conception, Architecture et construction, Système informatique et numérique, Aéronautique opt. mécanicien syst. avionique...) du baccalauréat du candidat.
     """
 
     return {
-        "série": candidat["Baccalaureat"]["SerieDiplomeCode"],
-        "spécialité": candidat["Baccalaureat"].get("SpecialiteLibelle", "N/A"),
+        "serie": candidat["Baccalaureat"]["SerieDiplomeCode"],
+        "specialite": candidat["Baccalaureat"].get("SpecialiteLibelle", "N/A"),
     }
 
 
@@ -281,11 +283,11 @@ def identite_candidat(candidat):
     - candidat (dict): Un dictionnaire contenant les données d'un candidat.
 
     ### Returns:
-    - dict: Un dictionnaire contenant le nom, le prénom et l'email du candidat.
+    - dict: Un dictionnaire contenant le nom (nom), le prénom (prenom) et l'email (email) du candidat.
     """
     return {
         "nom": candidat.get("DonneesCandidats", {}).get("NomCandidat", "N/A"),
-        "prénom": candidat.get("DonneesCandidats", {}).get("PrenomCandidat", "N/A"),
+        "prenom": candidat.get("DonneesCandidats", {}).get("PrenomCandidat", "N/A"),
         "email": candidat.get("DonneesCandidats", {}).get(
             "CoordonneesAdressemail", "N/A"
         ),
@@ -395,7 +397,8 @@ def bulletin_matiere(bulletin):
     - bulletin (dict): Un dictionnaire contenant les données d'un bulletin scolaire pour une matière donnée.
 
     ### Returns:
-    - dict: Un dictionnaire contenant la moyenne du candidat, la moyenne de la classe, la moyenne basse, la moyenne haute et l'appréciation du professeur pour la matière donnée dans le bulletin scolaire.
+    - dict: Un dictionnaire contenant la moyenne du candidat (moyenne_candidat), la moyenne de la classe (moyenne_classe),
+    la moyenne basse (moyenne_basse), la moyenne haute (moyenne_haute) et l'appréciation du professeur (appreciation) pour la matière donnée dans le bulletin scolaire.
     """
     return {
         "moyenne_candidat": bulletin.get("MoyenneduCandidat"),
@@ -575,7 +578,7 @@ def generer_csv(resultats_candidats, colonnes, chemin_fichier=None):
     - bool: True si le CSV a été généré avec succès, False sinon.
     """
     if chemin_fichier is None:
-        fichier = sélectionner_fichier(".", ".csv")
+        fichier = selectionner_fichier(".", ".csv")
     else:
         fichier = chemin_fichier
 
