@@ -552,6 +552,8 @@ def generer_pdf(
                         text = data.get(h, "")
                         if isinstance(text, float):
                             text = f"{text:.3f}"
+                        elif isinstance(text, int):
+                            text = str(text)
                         pdf.cell(
                             col_width[headers.index(h)],
                             10,
