@@ -387,21 +387,22 @@ def iterer_matieres_dans_bulletins(candidat, matieres, redoublement_neutralise=T
                                     }
 
 
-def moyennes_bulletins_matiere(bulletin):
+def bulletin_matiere(bulletin):
     """
-    Retourne un dictionnaire contenant la moyenne du candidat, la moyenne de la classe, la moyenne basse et la moyenne haute pour une matière donnée dans un bulletin scolaire.
+    Retourne un dictionnaire contenant la moyenne du candidat, la moyenne de la classe, la moyenne basse, la moyenne haute et l'appréciation du professeurpour une matière donnée dans un bulletin scolaire.
 
     ### Args:
     - bulletin (dict): Un dictionnaire contenant les données d'un bulletin scolaire pour une matière donnée.
 
     ### Returns:
-    - dict: Un dictionnaire contenant la moyenne du candidat, la moyenne de la classe, la moyenne basse et la moyenne haute pour la matière donnée dans le bulletin scolaire.
+    - dict: Un dictionnaire contenant la moyenne du candidat, la moyenne de la classe, la moyenne basse, la moyenne haute et l'appréciation du professeur pour la matière donnée dans le bulletin scolaire.
     """
     return {
         "moyenne_candidat": bulletin.get("MoyenneduCandidat"),
         "moyenne_classe": bulletin.get("MoyenneclasseCandidat"),
         "moyenne_basse": bulletin.get("MoyenneBasseClasseduCandidat"),
         "moyenne_haute": bulletin.get("MoyenneHauteClasseduCandidat"),
+        "appreciation": bulletin.get("AppreciationProfesseur"),
     }
 
 
