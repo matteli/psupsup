@@ -14,9 +14,6 @@ matieres = {
 }
 notes_bac = {"bac_français": (919, 920)}
 
-# Si redoublement_neutralise est True, alors seul les dernières Première et Terminale seront prises en compte pour le calcul des moyennes de matières. Si False, alors toutes les années seront prises en compte.
-redoublement_neutralise = True
-
 # Charger les données des candidats à partir d'un fichier JSON ZIP.
 candidats = charger_donnees()
 
@@ -52,18 +49,21 @@ for candidat in candidats:
             bac["série"] == "STI2D" and bac["série"] == "P"
         ):  # Filtrage des candidats suivant le bac
 
-            # Création d'itérateur pour parcourir les matières présentes dans les bulletins du candidat en fonction des matières définies dans le dictionnaire 'matieres' et de la variable 'redoublement_neutralise'.
+            # Création d'itérateur pour parcourir les matières présentes dans les bulletins du candidat en fonction des matières définies dans le dictionnaire 'matieres'.
             matieres_bulletins = iterer_matieres_dans_bulletins(
-                candidat, matieres, redoublement_neutralise
+                candidat,
+                matieres,
+                redoublement_neutralise=True,
+                terminale_seulement=False,
             )
             # Utilisation de l'itérateur pour parcourir les matières présentes dans les bulletins du candidat et calculer la note modifiée pour chaque matière.
             for mb in matieres_bulletins:
-                # Calcul de la note modifiée pour la matière en utilisant la fonction 'note_modifiee' qui prend en compte la note brute et la note normalisée en fonction de la moyenne de la classe, de la moyenne basse et de la moyenne haute.
-                note = note_modifiee(
-                    moyennes_bulletins_matiere(mb["bulletin"])["moyenne_candidat"],
-                    moyennes_bulletins_matiere(mb["bulletin"])["moyenne_classe"],
-                    moyennes_bulletins_matiere(mb["bulletin"])["moyenne_basse"],
-                    moyennes_bulletins_matiere(mb["bulletin"])["moyenne_haute"],
+                # Calcul de la note modifiée pour la matière en utilisant la fonction 'calculer_note_modifiee' qui prend en compte la note brute et la note normalisée en fonction de la moyenne de la classe, de la moyenne basse et de la moyenne haute.
+                note = calculer_note_modifiee(
+                    mb["moyenne_candidat"],
+                    mb["moyenne_classe"],
+                    mb["moyenne_basse"],
+                    mb["moyenne_haute"],
                 )
                 # Calcul de la moyenne de la matière
                 if note >= 0:
@@ -78,7 +78,7 @@ for candidat in candidats:
             matieres_bac = iterer_matieres_dans_bac(candidat, notes_bac)
             # Utilisation de l'itérateur pour parcourir les matières présentes dans le bac du candidat et calculer la note modifiée pour chaque matière.
             for mb in matieres_bac:
-                note = note_bac_modifiee(mb["note"])
+                note = convertir_note_bac(mb["note"])
                 resultats_candidats[num][mb["matiere"]]["nbre"] += 1
                 resultats_candidats[num][mb["matiere"]]["moyenne"] = (
                     resultats_candidats[num][mb["matiere"]]["moyenne"]
