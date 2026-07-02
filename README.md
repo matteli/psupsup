@@ -6,7 +6,7 @@ Le code est disponible sur GitHub (https://github.com/matteli/Psupsup) avec un f
 
 Installation
 ------------
-- Installer python (>=3.9)
+- Installer python (>=3.10)
 - Créer un répertoire de travail pour créer votre programme, copier les différents fichiers de travail parcoursup et récupérer les fichiers créés par votre programme. Entrer dans ce dossier.
 - Créer un environnement virtuel : `python3 -m venv .venv` 
 - Activer l'environnement virtuel. 

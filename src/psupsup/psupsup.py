@@ -258,7 +258,7 @@ def sexe_candidat(candidat):
     ### Returns:
     - str: Le sexe du candidat (Masculin ou Féminin).
     """
-    return candidat["DonneesCandidats"]["Sexe"]
+    return candidat["DonneesCandidats"].get("Sexe", "N/A")
 
 
 def type_bac(candidat):
