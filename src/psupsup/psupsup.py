@@ -12,7 +12,7 @@ from transformers import pipeline
 
 def init_classificateur(model_path="./models/appert", device=0):
     """
-    Initialise le modèle de classification de texte.
+    Initialise le modèle de classification d'appréciations.
 
     ### Args:
     - model_path (str, optional): Le chemin du modèle à utiliser (par défaut "./models/appert").
@@ -38,7 +38,8 @@ def classer_app(classifier, appreciation):
     - list: Le résultat de la classification de l'appréciation, avec les étiquettes et les scores correspondants dans un dictionnaire.
     """
     if appreciation is not None:
-        return classifier(appreciation)
+        cl = classifier(appreciation)
+        return cl[0]["label"]
     return None
 
 
