@@ -307,13 +307,14 @@ def groupe_candidat(candidat):
     return candidat.get("DonneesVoeux", "N/A").get("GroupeLibelle", "N/A")
 
 
-def filtrer_scolarite(candidat, redoublement_neutralise=True):
+def filtrer_scolarite(candidat, redoublement_neutralise, terminale_seulement):
     """
     Retourne une liste des années scolaires lycée du candidat en filtrant les redoublements de Première et Terminale si 'redoublement_neutralise' est True.
 
     ### Args:
     - candidat (dict): Un dictionnaire contenant les données d'un candidat.
-    - redoublement_neutralise (bool, optional): Si True, les redoublements de Première et Terminale sont neutralisés (par défaut True).
+    - redoublement_neutralise (bool): Si True, les redoublements de Première et Terminale sont neutralisés.
+    - terminale_seulement (bool): Si True, les années de Terminale sont retournées.
 
     ### Returns:
     - list: Une liste des années scolaires lycée du candidat, filtrée selon les redoublements si nécessaire.
@@ -327,7 +328,7 @@ def filtrer_scolarite(candidat, redoublement_neutralise=True):
                 sco_candidat.append(sco.get("AnneeScolaireCode"))
                 T1 = True
         elif sco.get("NiveauEtudeLibelle") == "Première":
-            if not P1 or not redoublement_neutralise:
+            if not P1 or not redoublement_neutralise or not terminale_seulement:
                 sco_candidat.append(sco.get("AnneeScolaireCode"))
                 P1 = True
     return sco_candidat
@@ -355,19 +356,24 @@ def iterer_matieres_dans_bac(candidat, notes_bac):
                     }
 
 
-def iterer_matieres_dans_bulletins(candidat, matieres, redoublement_neutralise=True):
+def iterer_matieres_dans_bulletins(
+    candidat, matieres, redoublement_neutralise, terminale_seulement
+):
     """
     Itère sur les matières des bulletins scolaires d'un candidat et retourne un dictionnaire contenant la matière, le code et le bulletin.
 
     ### Args:
     - candidat (dict): Un dictionnaire contenant les données d'un candidat.
     - matieres (dict): Un dictionnaire associant les matières à leurs codes.
-    - redoublement_neutralise (bool, optional): Si True, les redoublements de Première et Terminale sont neutralisés (par défaut True).
+    - redoublement_neutralise (bool): Si True, les redoublements de Première et Terminale sont neutralisés.
+    - terminale_seulement (bool): Si True, les années de Terminale sont retournées.
 
     ### Returns:
     - dict: Un dictionnaire contenant la matière, le code et le bulletin pour chaque matière trouvée dans les bulletins scolaires du candidat, filtré selon les redoublements si nécessaire.
     """
-    sco_candidat = filtrer_scolarite(candidat, redoublement_neutralise)
+    sco_candidat = filtrer_scolarite(
+        candidat, redoublement_neutralise, terminale_seulement
+    )
     for annee_code in sco_candidat:
         for BulletinScolaire in candidat["BulletinsScolaires"]:
             if BulletinScolaire["AnneeCode"] == annee_code:
