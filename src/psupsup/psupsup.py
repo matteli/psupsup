@@ -21,6 +21,7 @@ def initialiser_classificateur(model_path="./models/appert", device=0):
     ### Returns:
     - pipeline: Un pipeline de classification de texte initialisé avec le modèle spécifié.
     """
+    print("Initialisation du modèle de classification d'appréciations...")
     return pipeline(
         "text-classification", model=model_path, device=device, local_files_only=True
     )
