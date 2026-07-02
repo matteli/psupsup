@@ -3,14 +3,14 @@ import zipfile
 import os
 import datetime
 import csv
+
 import openpyxl
 from openpyxl.styles import Font, PatternFill
 from fpdf import FPDF
-
 from transformers import pipeline
 
 
-def init_classificateur(model_path="./models/appert", device=0):
+def initialiser_classificateur(model_path="./models/appert", device=0):
     """
     Initialise le modèle de classification d'appréciations.
 
@@ -147,7 +147,9 @@ def convertir_chaine_en_float(chaine):
         return None
 
 
-def note_modifiee(note, moyenne_classe, moyenne_basse, moyenne_haute, brute=0.5):
+def calculer_note_modifiee(
+    note, moyenne_classe, moyenne_basse, moyenne_haute, brute=0.5
+):
     """
     Calcule une note modifiée en pondérant avec l'argument 'brute' la note brute et la note normalisée.
 
@@ -175,13 +177,13 @@ def note_modifiee(note, moyenne_classe, moyenne_basse, moyenne_haute, brute=0.5)
         moyenne_haute = 20
 
     return (
-        note_normalisee(note, moyenne_classe, moyenne_basse, moyenne_haute)
+        calculer_note_normalisee(note, moyenne_classe, moyenne_basse, moyenne_haute)
         * (1 - brute)
         + note * brute
     )
 
 
-def note_normalisee(note, moyenne_classe, moyenne_basse, moyenne_haute):
+def calculer_note_normalisee(note, moyenne_classe, moyenne_basse, moyenne_haute):
     """
     Calcule la regression linéaire entre 0 et 20 pour une note avec la moyenne de la classe en valeur centrale.
 
@@ -570,12 +572,12 @@ def generer_pdf(
 
 def generer_csv(resultats_candidats, colonnes, chemin_fichier=None):
     """
-    Génère un fichier CSV importable dans parcoursup à partir d'un dictionnaire de résultats de candidats.
+    Génère un fichier CSV importable dans parcoursup à partir d'un dictionnaire de résultats de candidats et d'un fichier csv exporté.
 
     ### Args:
     - resultats_candidats (dict): Un dictionnaire contenant les résultats des candidats.
     - colonnes (list): Une liste des noms de colonnes à compléter dans le fichier CSV.
-    - chemin_fichier (str, optional): Le chemin du fichier CSV à générer.
+    - chemin_fichier (str, optional): Le chemin du fichier CSV exporté de parcoursup.
 
     ### Returns:
     - bool: True si le CSV a été généré avec succès, False sinon.
