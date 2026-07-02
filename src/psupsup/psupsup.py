@@ -154,10 +154,10 @@ def calculer_note_modifiee(
     Calcule une note modifiée en pondérant avec l'argument 'brute' la note brute et la note normalisée.
 
     ### Args:
-    - note (float): La note à modifier.
-    - moyenne_classe (float): La moyenne de la classe.
-    - moyenne_basse (float): La moyenne la plus basse.
-    - moyenne_haute (float): La moyenne la plus haute.
+    - note (any): La note à modifier.
+    - moyenne_classe (any): La moyenne de la classe.
+    - moyenne_basse (any): La moyenne la plus basse.
+    - moyenne_haute (any): La moyenne la plus haute.
     - brute (float, optional): Le poids de la note brute (entre 0 et 1, par défaut 0.5).
 
     ### Returns:
@@ -206,7 +206,7 @@ def calculer_note_normalisee(note, moyenne_classe, moyenne_basse, moyenne_haute)
         return 10 + (note - moyenne_classe) / (moyenne_haute - moyenne_classe) * 10
 
 
-def note_bac_modifiee(note):
+def convertir_note_bac(note):
     """
     Convertit une note de baccalauréat en float et retourne 0 si la conversion échoue.
 
